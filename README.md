@@ -16,11 +16,11 @@
 
 ## 📝 Descriptions
 
-**Repo tagline (100 characters):**
+**Repo Tagline:**
 
 > AI n8n workflow: scrapes a Fiverr gig, rewrites title, description and tags for SEO, emails results.
 
-**Short description (100 words):**
+**Description:**
 
 > An n8n automation that acts as a Fiverr SEO department. Given a gig, it scrapes the live title and description with Firecrawl, waits until the extraction finishes, then hands the text to an OpenAI agent that improves keywords without changing the gig's meaning. A code step validates the JSON, enforces the 80-character title limit and exactly five tags, and an HTML email delivers a clear before-and-after comparison. Three lanes run in parallel for 3D animation, Unreal Engine and AI automation gigs, so freelancers optimize every listing in just minutes instead of researching keywords manually, with no manual copy-pasting between tools.
 
