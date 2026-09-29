@@ -1,0 +1,887 @@
+{
+  "name": "seo department (2)",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "command"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -64,
+        0
+      ],
+      "id": "b03b63cc-a20d-4bff-99e1-7fd43360da22",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.firecrawl.dev/v2/extract",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"urls\": [\n    \"your_gig_url\"\n  ],\n  \"prompt\": \"extract the gig title and gig description from the fiverr gig\",\n  \"schema\": {\n    \"type\": \"object\",\n    \"required\": [],\n    \"properties\": {\n      \"gig_title\": {\n        \"type\": \"string\"\n      },\n      \"gig_description\": {\n        \"type\": \"string\"\n      }\n    }\n  }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        304,
+        240
+      ],
+      "id": "52a26d57-3369-4b4f-b50a-5b2c140fa892",
+      "name": "extracting gig content_Ai",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yaodYM5J5rvSzPg0",
+          "name": "firecrwal_api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.firecrawl.dev/v2/extract",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"urls\": [\n    \"your_gig_url\"\n  ],\n  \"prompt\": \"extract the gig title and gig description from the fiverr gig\",\n  \"schema\": {\n    \"type\": \"object\",\n    \"required\": [],\n    \"properties\": {\n      \"gig_title\": {\n        \"type\": \"string\"\n      },\n      \"gig_description\": {\n        \"type\": \"string\"\n      }\n    }\n  }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        304,
+        0
+      ],
+      "id": "4645e776-6574-4f94-bab4-f994efd762ff",
+      "name": "extracting gig content_unreal",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yaodYM5J5rvSzPg0",
+          "name": "firecrwal_api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.firecrawl.dev/v2/extract",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"urls\": [\n    \"your_gig_url\"\n  ],\n  \"prompt\": \"extract the gig title and gig description from the fiverr gig\",\n  \"schema\": {\n    \"type\": \"object\",\n    \"required\": [],\n    \"properties\": {\n      \"gig_title\": {\n        \"type\": \"string\"\n      },\n      \"gig_description\": {\n        \"type\": \"string\"\n      }\n    }\n  }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        304,
+        -240
+      ],
+      "id": "5ecb6d9d-bc45-4d0b-a873-c1d471686a01",
+      "name": "extracting gig content_anim",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yaodYM5J5rvSzPg0",
+          "name": "firecrwal_api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.firecrawl.dev/v2/extract/{{ $('extracting gig content_anim').item.json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer $FIRECRAWL_API_KEY"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        768,
+        -240
+      ],
+      "id": "a1de6d88-87e8-4c2a-8815-745392555747",
+      "name": "getting gig content_anim",
+      "retryOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yaodYM5J5rvSzPg0",
+          "name": "firecrwal_api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.firecrawl.dev/v2/extract/{{ $('extracting gig content_unreal').item.json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer $FIRECRAWL_API_KEY"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        768,
+        0
+      ],
+      "id": "e9ac6a44-ffd5-4fe6-92f1-bd1e368b37d4",
+      "name": "getting gig content_unreal",
+      "retryOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yaodYM5J5rvSzPg0",
+          "name": "firecrwal_api"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.firecrawl.dev/v2/extract/{{ $('extracting gig content_Ai').item.json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer $FIRECRAWL_API_KEY"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        752,
+        240
+      ],
+      "id": "ff13a453-e21a-4581-9685-e23753662ace",
+      "name": "getting gig content_Ai",
+      "retryOnFail": true,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "yaodYM5J5rvSzPg0",
+          "name": "firecrwal_api"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1312,
+        -272
+      ],
+      "id": "9726e70b-a291-42aa-88a6-87f09e991bb9",
+      "name": "Wait 5 sec",
+      "webhookId": "727d3756-e545-408d-a5df-3587cfef87e9"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c539f193-1a26-499f-b6af-c38876f51425",
+              "leftValue": "={{ $json.data }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1008,
+        -256
+      ],
+      "id": "00d8bee1-b355-46fb-ae8b-b7330da0d654",
+      "name": "polling",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8098db0c-cf5d-4a20-8494-e851168e1ac4",
+              "leftValue": "={{ $json.data }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1008,
+        -16
+      ],
+      "id": "9a8ef908-1308-442f-9bab-15fcbc6c3e76",
+      "name": "polling1",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1312,
+        -32
+      ],
+      "id": "47b0d5a9-9046-40e6-885b-fe642d7e9f33",
+      "name": "Wait 5 sec1",
+      "webhookId": "727d3756-e545-408d-a5df-3587cfef87e9"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8098db0c-cf5d-4a20-8494-e851168e1ac4",
+              "leftValue": "={{ $json.data }}",
+              "rightValue": "",
+              "operator": {
+                "type": "array",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1008,
+        224
+      ],
+      "id": "3bb13c7f-a5ca-4f7d-8ba0-e42e4283e786",
+      "name": "polling2",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1312,
+        208
+      ],
+      "id": "40744fc1-29db-450d-be77-ac09500406ea",
+      "name": "Wait 5 sec2",
+      "webhookId": "727d3756-e545-408d-a5df-3587cfef87e9"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=gig title : {{ $json.data.gig_title }} \ngig description : {{ $json.data.gig_description }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are an SEO and Fiverr gig optimization expert.\n\nYour task:\n- Given a Fiverr gig’s title and description, research how real buyers search on Fiverr and Google.  \n- Use this insight to refine the gig’s title and description so they become more SEO-friendly, while staying faithful to the original meaning.  \n- Do not completely rewrite the content; only adjust and enhance keywords naturally within the existing text.  \n\nRules:\n- Keep the original style and intent of the gig.  \n- Improve keyword usage for Fiverr search visibility.  \n- Do not add unrelated services.  \n- Provide exactly 5 Fiverr tags (short keyword phrases, max 3–4 words each).  \n\nOutput requirements:\n- Return **only valid JSON** that matches the schema below.  \n- Do not include any extra text, explanations, prefixes (like \"output:\"), or code fences (```json).  \n- Do not escape characters with \\n — output plain JSON only.  \n\nSchema (must be followed exactly):\n\n{\n  \"previous_title\": \"string\",\n  \"updated_title\": \"string\",\n  \"previous_description\": \"string\",\n  \"updated_description\": \"string\",\n  \"tags\": [\"string\",\"string\",\"string\",\"string\",\"string\"]\n}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1792,
+        240
+      ],
+      "id": "fe227259-15b0-4089-89b0-32b080546bcf",
+      "name": "Ai_gig"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=gig_title: {{ $json.data.gig_title }} \ngig _description : {{ $json.data.gig_description }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are an SEO and Fiverr gig optimization expert.\n\nYour task:\n- Given a Fiverr gig’s title and description, research how real buyers search on Fiverr and Google.  \n- Use this insight to refine the gig’s title and description so they become more SEO-friendly, while staying faithful to the original meaning.  \n- Do not completely rewrite the content; only adjust and enhance keywords naturally within the existing text.  \n\nRules:\n- Keep the original style and intent of the gig.  \n- Improve keyword usage for Fiverr search visibility.  \n- Do not add unrelated services.  \n- Provide exactly 5 Fiverr tags (short keyword phrases, max 3–4 words each).  \n\nOutput requirements:\n- Return **only valid JSON** that matches the schema below.  \n- Do not include any extra text, explanations, prefixes (like \"output:\"), or code fences (```json).  \n- Do not escape characters with \\n — output plain JSON only.  \n\nSchema (must be followed exactly):\n\n{\n  \"previous_title\": \"string\",\n  \"updated_title\": \"string\",\n  \"previous_description\": \"string\",\n  \"updated_description\": \"string\",\n  \"tags\": [\"string\",\"string\",\"string\",\"string\",\"string\"]\n}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1792,
+        0
+      ],
+      "id": "c6d44ce2-a38e-425d-a1ec-3cd9c35e485a",
+      "name": "unreal_gig"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=gig title :  {{ $json.data.gig_title }}\ngig description :{{ $json.data.gig_description }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are an SEO and Fiverr gig optimization expert.\n\nYour task:\n- Given a Fiverr gig’s title and description, research how real buyers search on Fiverr and Google.  \n- Use this insight to refine the gig’s title and description so they become more SEO-friendly, while staying faithful to the original meaning.  \n- Do not completely rewrite the content; only adjust and enhance keywords naturally within the existing text.  \n\nRules:\n- Keep the original style and intent of the gig.  \n- Improve keyword usage for Fiverr search visibility.  \n- Do not add unrelated services.  \n- Provide exactly 5 Fiverr tags (short keyword phrases, max 3–4 words each).  \n\nOutput requirements:\n- Return **only valid JSON** that matches the schema below.  \n- Do not include any extra text, explanations, prefixes (like \"output:\"), or code fences (```json).  \n- Do not escape characters with \\n — output plain JSON only.  \n\nSchema (must be followed exactly):\n\n{\n  \"previous_title\": \"string\",\n  \"updated_title\": \"string\",\n  \"previous_description\": \"string\",\n  \"updated_description\": \"string\",\n  \"tags\": [\"string\",\"string\",\"string\",\"string\",\"string\"]\n}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1792,
+        -240
+      ],
+      "id": "cc5ad9c5-d3fb-44e9-bc90-53bd1e3d6ad4",
+      "name": "anim_gig"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1616,
+        352
+      ],
+      "id": "7de4fee4-e53e-4395-ba98-72ed3c82ce8f",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "MJhgZR8puysekiKj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Takes whatever the LLM returned and produces a clean object that\n// matches your JSON Schema (no extra props, right types, 5 tags).\n\nconst SCHEMA_KEYS = new Set([\n  \"previous_title\",\n  \"updated_title\",\n  \"previous_description\",\n  \"updated_description\",\n  \"tags\"\n]);\n\n// 1) Get raw text/object from previous node\nfunction getRaw(i) {\n  const j = i.json ?? i;\n\n  // If it's already an object with expected keys, use it.\n  if (j && typeof j === \"object\" && !Array.isArray(j)) {\n    const hasAny = [...SCHEMA_KEYS].some(k => k in j);\n    if (hasAny) return j;\n  }\n\n  // Common places LLM output lives as a string:\n  const cand = [\"text\",\"response\",\"content\",\"message\",\"output\",\"raw\",\"result\"];\n  for (const k of cand) {\n    if (typeof j[k] === \"string\" && j[k].trim()) return j[k];\n  }\n\n  // OpenAI Chat format sometimes:\n  if (j.data?.[0]?.content?.[0]?.text) return j.data[0].content[0].text;\n\n  // Fallback: any string with a brace\n  for (const v of Object.values(j)) {\n    if (typeof v === \"string\" && v.includes(\"{\")) return v;\n  }\n\n  throw new Error(\"No LLM JSON/text found for parsing.\");\n}\n\n// 2) Extract JSON object from string (handles code fences & double-encoding)\nfunction parseMaybeString(x) {\n  if (typeof x !== \"string\") return x;           // already object\n  let s = x.replace(/```(?:json)?/gi, \"\").replace(/```/g, \"\").trim();\n  const start = s.indexOf(\"{\");\n  const end = s.lastIndexOf(\"}\");\n  if (start === -1 || end === -1) throw new Error(\"No JSON object detected in text.\");\n  let js = s.slice(start, end + 1);\n\n  // Normalize smart quotes\n  js = js.replace(/[\\u2018\\u2019]/g, \"'\").replace(/[\\u201C\\u201D]/g, '\"');\n\n  try { return JSON.parse(js); } catch {}\n  try {\n    const maybe = JSON.parse(js);\n    if (typeof maybe === \"string\") return JSON.parse(maybe);\n    return maybe;\n  } catch {}\n  // Remove trailing commas and retry\n  const fixed = js.replace(/,\\s*([}\\]])/g, \"$1\");\n  return JSON.parse(fixed);\n}\n\n// 3) Enforce your schema shape (drop extras, types, lengths)\nfunction enforce(o) {\n  if (o == null || typeof o !== \"object\" || Array.isArray(o)) {\n    throw new Error(\"Top-level JSON must be an object.\");\n  }\n\n  // Drop additionalProperties\n  const y = {};\n  for (const k of SCHEMA_KEYS) if (k in o) y[k] = o[k];\n\n  // Required\n  for (const k of SCHEMA_KEYS) {\n    if (!(k in y)) throw new Error(`Missing required key: ${k}`);\n  }\n\n  // Types & trims\n  y.previous_title = String(y.previous_title ?? \"\").trim();\n  y.updated_title = String(y.updated_title ?? \"\").trim();\n  y.previous_description = String(y.previous_description ?? \"\").trim();\n  y.updated_description = String(y.updated_description ?? \"\").trim();\n\n  if (!Array.isArray(y.tags)) throw new Error(\"tags must be an array\");\n  y.tags = y.tags.map(t => String(t ?? \"\").trim()).filter(Boolean);\n\n  // Constraints from your schema\n  if (y.updated_title.length > 80) {\n    // choose: fail or auto-truncate. Here we auto-truncate to pass the parser.\n    y.updated_title = y.updated_title.slice(0, 80);\n  }\n\n  if (y.tags.length > 5) y.tags = y.tags.slice(0, 5);\n  if (y.tags.length !== 5) throw new Error(`tags must be exactly 5; got ${y.tags.length}`);\n\n  return y;\n}\n\nconst raw = getRaw(items[0]);\nconst parsed = parseMaybeString(raw);\nconst clean = enforce(parsed);\nreturn [{ json: clean }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2176,
+        -240
+      ],
+      "id": "f90f19bb-1888-473e-bb6b-74034e91eb64",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Takes whatever the LLM returned and produces a clean object that\n// matches your JSON Schema (no extra props, right types, 5 tags).\n\nconst SCHEMA_KEYS = new Set([\n  \"previous_title\",\n  \"updated_title\",\n  \"previous_description\",\n  \"updated_description\",\n  \"tags\"\n]);\n\n// 1) Get raw text/object from previous node\nfunction getRaw(i) {\n  const j = i.json ?? i;\n\n  // If it's already an object with expected keys, use it.\n  if (j && typeof j === \"object\" && !Array.isArray(j)) {\n    const hasAny = [...SCHEMA_KEYS].some(k => k in j);\n    if (hasAny) return j;\n  }\n\n  // Common places LLM output lives as a string:\n  const cand = [\"text\",\"response\",\"content\",\"message\",\"output\",\"raw\",\"result\"];\n  for (const k of cand) {\n    if (typeof j[k] === \"string\" && j[k].trim()) return j[k];\n  }\n\n  // OpenAI Chat format sometimes:\n  if (j.data?.[0]?.content?.[0]?.text) return j.data[0].content[0].text;\n\n  // Fallback: any string with a brace\n  for (const v of Object.values(j)) {\n    if (typeof v === \"string\" && v.includes(\"{\")) return v;\n  }\n\n  throw new Error(\"No LLM JSON/text found for parsing.\");\n}\n\n// 2) Extract JSON object from string (handles code fences & double-encoding)\nfunction parseMaybeString(x) {\n  if (typeof x !== \"string\") return x;           // already object\n  let s = x.replace(/```(?:json)?/gi, \"\").replace(/```/g, \"\").trim();\n  const start = s.indexOf(\"{\");\n  const end = s.lastIndexOf(\"}\");\n  if (start === -1 || end === -1) throw new Error(\"No JSON object detected in text.\");\n  let js = s.slice(start, end + 1);\n\n  // Normalize smart quotes\n  js = js.replace(/[\\u2018\\u2019]/g, \"'\").replace(/[\\u201C\\u201D]/g, '\"');\n\n  try { return JSON.parse(js); } catch {}\n  try {\n    const maybe = JSON.parse(js);\n    if (typeof maybe === \"string\") return JSON.parse(maybe);\n    return maybe;\n  } catch {}\n  // Remove trailing commas and retry\n  const fixed = js.replace(/,\\s*([}\\]])/g, \"$1\");\n  return JSON.parse(fixed);\n}\n\n// 3) Enforce your schema shape (drop extras, types, lengths)\nfunction enforce(o) {\n  if (o == null || typeof o !== \"object\" || Array.isArray(o)) {\n    throw new Error(\"Top-level JSON must be an object.\");\n  }\n\n  // Drop additionalProperties\n  const y = {};\n  for (const k of SCHEMA_KEYS) if (k in o) y[k] = o[k];\n\n  // Required\n  for (const k of SCHEMA_KEYS) {\n    if (!(k in y)) throw new Error(`Missing required key: ${k}`);\n  }\n\n  // Types & trims\n  y.previous_title = String(y.previous_title ?? \"\").trim();\n  y.updated_title = String(y.updated_title ?? \"\").trim();\n  y.previous_description = String(y.previous_description ?? \"\").trim();\n  y.updated_description = String(y.updated_description ?? \"\").trim();\n\n  if (!Array.isArray(y.tags)) throw new Error(\"tags must be an array\");\n  y.tags = y.tags.map(t => String(t ?? \"\").trim()).filter(Boolean);\n\n  // Constraints from your schema\n  if (y.updated_title.length > 80) {\n    // choose: fail or auto-truncate. Here we auto-truncate to pass the parser.\n    y.updated_title = y.updated_title.slice(0, 80);\n  }\n\n  if (y.tags.length > 5) y.tags = y.tags.slice(0, 5);\n  if (y.tags.length !== 5) throw new Error(`tags must be exactly 5; got ${y.tags.length}`);\n\n  return y;\n}\n\nconst raw = getRaw(items[0]);\nconst parsed = parseMaybeString(raw);\nconst clean = enforce(parsed);\nreturn [{ json: clean }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2176,
+        0
+      ],
+      "id": "089c46fe-98ab-4277-a0b0-1661d5160cde",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Takes whatever the LLM returned and produces a clean object that\n// matches your JSON Schema (no extra props, right types, 5 tags).\n\nconst SCHEMA_KEYS = new Set([\n  \"previous_title\",\n  \"updated_title\",\n  \"previous_description\",\n  \"updated_description\",\n  \"tags\"\n]);\n\n// 1) Get raw text/object from previous node\nfunction getRaw(i) {\n  const j = i.json ?? i;\n\n  // If it's already an object with expected keys, use it.\n  if (j && typeof j === \"object\" && !Array.isArray(j)) {\n    const hasAny = [...SCHEMA_KEYS].some(k => k in j);\n    if (hasAny) return j;\n  }\n\n  // Common places LLM output lives as a string:\n  const cand = [\"text\",\"response\",\"content\",\"message\",\"output\",\"raw\",\"result\"];\n  for (const k of cand) {\n    if (typeof j[k] === \"string\" && j[k].trim()) return j[k];\n  }\n\n  // OpenAI Chat format sometimes:\n  if (j.data?.[0]?.content?.[0]?.text) return j.data[0].content[0].text;\n\n  // Fallback: any string with a brace\n  for (const v of Object.values(j)) {\n    if (typeof v === \"string\" && v.includes(\"{\")) return v;\n  }\n\n  throw new Error(\"No LLM JSON/text found for parsing.\");\n}\n\n// 2) Extract JSON object from string (handles code fences & double-encoding)\nfunction parseMaybeString(x) {\n  if (typeof x !== \"string\") return x;           // already object\n  let s = x.replace(/```(?:json)?/gi, \"\").replace(/```/g, \"\").trim();\n  const start = s.indexOf(\"{\");\n  const end = s.lastIndexOf(\"}\");\n  if (start === -1 || end === -1) throw new Error(\"No JSON object detected in text.\");\n  let js = s.slice(start, end + 1);\n\n  // Normalize smart quotes\n  js = js.replace(/[\\u2018\\u2019]/g, \"'\").replace(/[\\u201C\\u201D]/g, '\"');\n\n  try { return JSON.parse(js); } catch {}\n  try {\n    const maybe = JSON.parse(js);\n    if (typeof maybe === \"string\") return JSON.parse(maybe);\n    return maybe;\n  } catch {}\n  // Remove trailing commas and retry\n  const fixed = js.replace(/,\\s*([}\\]])/g, \"$1\");\n  return JSON.parse(fixed);\n}\n\n// 3) Enforce your schema shape (drop extras, types, lengths)\nfunction enforce(o) {\n  if (o == null || typeof o !== \"object\" || Array.isArray(o)) {\n    throw new Error(\"Top-level JSON must be an object.\");\n  }\n\n  // Drop additionalProperties\n  const y = {};\n  for (const k of SCHEMA_KEYS) if (k in o) y[k] = o[k];\n\n  // Required\n  for (const k of SCHEMA_KEYS) {\n    if (!(k in y)) throw new Error(`Missing required key: ${k}`);\n  }\n\n  // Types & trims\n  y.previous_title = String(y.previous_title ?? \"\").trim();\n  y.updated_title = String(y.updated_title ?? \"\").trim();\n  y.previous_description = String(y.previous_description ?? \"\").trim();\n  y.updated_description = String(y.updated_description ?? \"\").trim();\n\n  if (!Array.isArray(y.tags)) throw new Error(\"tags must be an array\");\n  y.tags = y.tags.map(t => String(t ?? \"\").trim()).filter(Boolean);\n\n  // Constraints from your schema\n  if (y.updated_title.length > 80) {\n    // choose: fail or auto-truncate. Here we auto-truncate to pass the parser.\n    y.updated_title = y.updated_title.slice(0, 80);\n  }\n\n  if (y.tags.length > 5) y.tags = y.tags.slice(0, 5);\n  if (y.tags.length !== 5) throw new Error(`tags must be exactly 5; got ${y.tags.length}`);\n\n  return y;\n}\n\nconst raw = getRaw(items[0]);\nconst parsed = parseMaybeString(raw);\nconst clean = enforce(parsed);\nreturn [{ json: clean }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2176,
+        240
+      ],
+      "id": "5e4aace0-5565-425b-920b-2fcdc07260ee",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "sendTo": "hassankhaleeq388@gmail.com",
+        "subject": "Car_anim_Gig_seo_updated",
+        "message": "=<html>\n  <body style=\"font-family: Arial, sans-serif; line-height: 1.6; color: #333;\">\n    \n    <!-- 3D Car Animation Gig -->\n    <h2 style=\"color:#2c3e50;\">🚗 3D Car Animation Gig</h2>\n    <p><b>Previous Title:</b> {{ $json.previous_title }}</p>\n    <p><b>Updated Title:</b> {{ $json.updated_title }}</p>\n    <p><b>Previous Description:</b> {{ $json.previous_description }}</p>\n    <p><b>Updated Description:</b> {{ $json.updated_description }}</p>\n    <h4 style=\"margin-top:10px;\">Tags:</h4>\n    <ul>\n      <li>{{ $json.tags[0] }}</li>\n      <li>{{ $json.tags[1] }}</li>\n      <li>{{ $json.tags[2] }}</li>\n      <li>{{ $json.tags[3] }}</li>\n      <li>{{ $json.tags[4] }}</li>\n    </ul>\n    <hr style=\"margin:20px 0;\">\n\n\n</body>\n</html>\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2496,
+        -240
+      ],
+      "id": "b8a557aa-5ebc-4a13-806a-7d7419231278",
+      "name": "Sending updated gig_anim",
+      "webhookId": "1d9ef2b8-d880-4417-a6a8-f1de56dfbe64",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eYP32VFmnqhaHcAn",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "hassankhaleeq388@gmail.com",
+        "subject": "Unreal_Gig_seo_updated",
+        "message": "=\n\n    <!-- Unreal Engine Gig -->\n    <h2 style=\"color:#2c3e50;\">🎮 Unreal Engine Gig</h2>\n    <p><b>Previous Title:</b> {{ $json.previous_title }}</p>\n    <p><b>Updated Title:</b> {{ $json.updated_title }}</p>\n    <p><b>Previous Description:</b> {{ $json.previous_description }}</p>\n    <p><b>Updated Description:</b> {{ $json.updated_description }}</p>\n    <h4 style=\"margin-top:10px;\">Tags:</h4>\n    <ul>\n      <li>{{ $json.tags[0] }}</li>\n      <li>{{ $json.tags[1] }}</li>\n      <li>{{ $json.tags[2] }}</li>\n      <li>{{ $json.tags[3] }}</li>\n      <li>{{ $json.tags[4] }}</li>\n    </ul>\n    <hr style=\"margin:20px 0;\">\n\n   \n\n  </body>\n</html>\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2496,
+        0
+      ],
+      "id": "32239810-7ce1-47d5-bdf2-523929a77314",
+      "name": "Sending updated gig_unreal",
+      "webhookId": "1d9ef2b8-d880-4417-a6a8-f1de56dfbe64",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eYP32VFmnqhaHcAn",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "hassankhaleeq388@gmail.com",
+        "subject": "Ai_Gig_seo_updated",
+        "message": "=\n\n    <!-- AI Automation Gig -->\n    <h2 style=\"color:#2c3e50;\">🤖 AI Automation Gig</h2>\n    <p><b>Previous Title:</b> {{ $json.previous_title }}</p>\n    <p><b>Updated Title:</b> {{ $json.updated_title }}</p>\n    <p><b>Previous Description:</b> {{ $json.previous_description }}</p>\n    <p><b>Updated Description:</b> {{ $json.updated_description }}</p>\n    <h4 style=\"margin-top:10px;\">Tags:</h4>\n    <ul>\n      <li>{{ $json.tags[0] }}</li>\n      <li>{{ $json.tags[1] }}</li>\n      <li>{{ $json.tags[2] }}</li>\n      <li>{{ $json.tags[3] }}</li>\n      <li>{{ $json.tags[4] }}</li>\n    </ul>\n\n  </body>\n</html>\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2496,
+        240
+      ],
+      "id": "84718fdc-9469-48e9-9fac-ad664687112c",
+      "name": "Sending updated gig_Ai",
+      "webhookId": "1d9ef2b8-d880-4417-a6a8-f1de56dfbe64",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "eYP32VFmnqhaHcAn",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "trigger\n",
+        "height": 288,
+        "width": 320,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        -80
+      ],
+      "id": "853d9ef3-5040-4003-abde-e84516f66c5b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "scrapping gig content from fivver or upwork\n",
+        "height": 720,
+        "width": 1232,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        256,
+        -288
+      ],
+      "id": "5f29e1b0-3722-47e3-af86-e424fba1bd27",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "refining content\n",
+        "height": 800,
+        "width": 736,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        -288
+      ],
+      "id": "09954703-944b-4f2d-8f4a-43e3b8c03d62",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "sending updated content\n",
+        "height": 784,
+        "width": 256,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2416,
+        -288
+      ],
+      "id": "9a3f10d3-cd27-40fb-949e-5b0d3f94cea0",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "\nAbout the creator :\n\nHi! I’m Hassan Khaleeq from Pakistan 🇵🇰.\nI’m a 14-year-old AI Agent learner and builder, passionate about creating automations in n8n and exploring new AI tools.\nI love combining creativity and technology to build smart systems and learn something new every day!\nmy channel link : https://www.youtube.com/@DigitalElectrition",
+        "height": 624,
+        "width": 592,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -816,
+        -400
+      ],
+      "id": "c169de68-219f-4fc3-b52a-4176d029d12c",
+      "name": "Sticky Note4"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "extracting gig content_Ai",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "extracting gig content_unreal",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "extracting gig content_anim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extracting gig content_Ai": {
+      "main": [
+        [
+          {
+            "node": "getting gig content_Ai",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extracting gig content_unreal": {
+      "main": [
+        [
+          {
+            "node": "getting gig content_unreal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extracting gig content_anim": {
+      "main": [
+        [
+          {
+            "node": "getting gig content_anim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getting gig content_anim": {
+      "main": [
+        [
+          {
+            "node": "polling",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 5 sec": {
+      "main": [
+        [
+          {
+            "node": "getting gig content_anim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "polling": {
+      "main": [
+        [
+          {
+            "node": "Wait 5 sec",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "anim_gig",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getting gig content_unreal": {
+      "main": [
+        [
+          {
+            "node": "polling1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "polling1": {
+      "main": [
+        [
+          {
+            "node": "Wait 5 sec1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "unreal_gig",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 5 sec1": {
+      "main": [
+        [
+          {
+            "node": "getting gig content_unreal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getting gig content_Ai": {
+      "main": [
+        [
+          {
+            "node": "polling2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "polling2": {
+      "main": [
+        [
+          {
+            "node": "Wait 5 sec2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ai_gig",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 5 sec2": {
+      "main": [
+        [
+          {
+            "node": "getting gig content_Ai",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "unreal_gig",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Ai_gig",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "anim_gig",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "anim_gig": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Sending updated gig_anim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "unreal_gig": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ai_gig": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Sending updated gig_Ai",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Sending updated gig_unreal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "271f6ec1-0c58-4081-88ef-c5aada94beee",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e60adaa96a13d29d8baf5e8ecf7f85bb27456770d7a2a4fcc1df702728c3a50c"
+  },
+  "id": "3wXnlglLYO5vtUZQ",
+  "tags": []
+}

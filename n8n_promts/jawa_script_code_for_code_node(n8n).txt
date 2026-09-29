@@ -1,0 +1,101 @@
+// Takes whatever the LLM returned and produces a clean object that
+// matches your JSON Schema (no extra props, right types, 5 tags).
+
+const SCHEMA_KEYS = new Set([
+  "previous_title",
+  "updated_title",
+  "previous_description",
+  "updated_description",
+  "tags"
+]);
+
+// 1) Get raw text/object from previous node
+function getRaw(i) {
+  const j = i.json ?? i;
+
+  // If it's already an object with expected keys, use it.
+  if (j && typeof j === "object" && !Array.isArray(j)) {
+    const hasAny = [...SCHEMA_KEYS].some(k => k in j);
+    if (hasAny) return j;
+  }
+
+  // Common places LLM output lives as a string:
+  const cand = ["text","response","content","message","output","raw","result"];
+  for (const k of cand) {
+    if (typeof j[k] === "string" && j[k].trim()) return j[k];
+  }
+
+  // OpenAI Chat format sometimes:
+  if (j.data?.[0]?.content?.[0]?.text) return j.data[0].content[0].text;
+
+  // Fallback: any string with a brace
+  for (const v of Object.values(j)) {
+    if (typeof v === "string" && v.includes("{")) return v;
+  }
+
+  throw new Error("No LLM JSON/text found for parsing.");
+}
+
+// 2) Extract JSON object from string (handles code fences & double-encoding)
+function parseMaybeString(x) {
+  if (typeof x !== "string") return x;           // already object
+  let s = x.replace(/```(?:json)?/gi, "").replace(/```/g, "").trim();
+  const start = s.indexOf("{");
+  const end = s.lastIndexOf("}");
+  if (start === -1 || end === -1) throw new Error("No JSON object detected in text.");
+  let js = s.slice(start, end + 1);
+
+  // Normalize smart quotes
+  js = js.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+
+  try { return JSON.parse(js); } catch {}
+  try {
+    const maybe = JSON.parse(js);
+    if (typeof maybe === "string") return JSON.parse(maybe);
+    return maybe;
+  } catch {}
+  // Remove trailing commas and retry
+  const fixed = js.replace(/,\s*([}\]])/g, "$1");
+  return JSON.parse(fixed);
+}
+
+// 3) Enforce your schema shape (drop extras, types, lengths)
+function enforce(o) {
+  if (o == null || typeof o !== "object" || Array.isArray(o)) {
+    throw new Error("Top-level JSON must be an object.");
+  }
+
+  // Drop additionalProperties
+  const y = {};
+  for (const k of SCHEMA_KEYS) if (k in o) y[k] = o[k];
+
+  // Required
+  for (const k of SCHEMA_KEYS) {
+    if (!(k in y)) throw new Error(`Missing required key: ${k}`);
+  }
+
+  // Types & trims
+  y.previous_title = String(y.previous_title ?? "").trim();
+  y.updated_title = String(y.updated_title ?? "").trim();
+  y.previous_description = String(y.previous_description ?? "").trim();
+  y.updated_description = String(y.updated_description ?? "").trim();
+
+  if (!Array.isArray(y.tags)) throw new Error("tags must be an array");
+  y.tags = y.tags.map(t => String(t ?? "").trim()).filter(Boolean);
+
+  // Constraints from your schema
+  if (y.updated_title.length > 80) {
+    // choose: fail or auto-truncate. Here we auto-truncate to pass the parser.
+    y.updated_title = y.updated_title.slice(0, 80);
+  }
+
+  if (y.tags.length > 5) y.tags = y.tags.slice(0, 5);
+  if (y.tags.length !== 5) throw new Error(`tags must be exactly 5; got ${y.tags.length}`);
+
+  return y;
+}
+
+const raw = getRaw(items[0]);
+const parsed = parseMaybeString(raw);
+const clean = enforce(parsed);
+return [{ json: clean }];
