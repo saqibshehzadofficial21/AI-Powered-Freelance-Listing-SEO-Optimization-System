@@ -487,11 +487,6 @@ The workflow runs end to end in concept, but the export contains a few placehold
 
 > **It removes the manual grind of gig SEO.** Instead of copying text, researching keywords and rewriting each listing by hand, every gig is scraped, optimized and delivered as a validated before-and-after report, automatically and in parallel.
 
----
-
-## 🙌 Credits
-
-The workflow file includes a note crediting its original creator, **Hassan Khaleeq** (Pakistan), an AI-agent learner and n8n builder, with a YouTube channel called *Digital Electrition*. This README documents and extends that workflow.
 
 ---
 
