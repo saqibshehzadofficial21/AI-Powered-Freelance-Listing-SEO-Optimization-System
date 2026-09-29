@@ -501,7 +501,7 @@ The workflow file includes a note crediting its original creator, **Hassan Khale
 
 - 💼 **GitHub:** [github.com/saqibshehzadofficial21](https://github.com/saqibshehzadofficial21)
 - 🔗 **LinkedIn:** [linkedin.com/in/saqibshehzadofficial01](https://www.linkedin.com/in/saqibshehzadofficial01/)
-- 📦 **Project Repo:** `https://github.com/saqibshehzadofficial21/<your-repo-name>`
+- 📦 **Project Repo:** `https://github.com/saqibshehzadofficial21/AI-Powered-Freelance-Listing-SEO-Optimization-System.git`
 
 <div align="center">
 
